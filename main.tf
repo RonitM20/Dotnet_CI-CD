@@ -19,6 +19,13 @@ provider "azurerm" {
   features {}
 }
 
+#backend
+terraform {
+  backend "azurerm" {
+    
+  }
+}
+
 #resource
 module "vnet" {
   source              = "Azure/vnet/azurerm"
