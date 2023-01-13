@@ -32,8 +32,8 @@ if($IsNewSite){
      Write-Output 'Pool Not Available'
   }else{
     Write-Output 'Pool Exists'
-    New-Item IIS:\Sites\$WebSiteName -physicalPath $WebSitePath -bindings @{protocol= $Protocol ;bindingInformation=$Port}
-    Set-ItemProperty IIS:\Sites\$WebSiteName -name applicationPool -value 'DefaultAppPool' #You can update the Pool name with variable declared at top and pass it from TFS Release Management
+    New-Item IIS:\Sites\$WebSiteName -physicalPath $WebSitePath -bindings @{protocol= $Protocol ;bindingInformation=':80:'}
+    Set-ItemProperty IIS:\Sites\$WebSiteName -name applicationPool -value 'DefaultAppPool'
   }
 
 }else{
