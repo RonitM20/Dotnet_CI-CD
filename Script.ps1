@@ -25,12 +25,10 @@ if($IsNewSite){
    Write-Output 'New Site'
    foreach($Pool in $IISAppPool){
      if($Pool.Name -eq 'DefaultAppPool'){ 
-       #You can update the Pool name with variable declared at top and pass it from TFS Release Management
        $IspoolExists=$true
       }
    }
    if(-not $IspoolExists){
-     #New-Item IIS:\AppPools\$AppPool
      Write-Output 'Pool Not Available'
   }else{
     Write-Output 'Pool Exists'
