@@ -15,7 +15,7 @@ copy-item "$(System.DefaultWorkingDirectory)/_Ron_devops (1)/Azurebuildpipeline/
 
  
 
-# Check if website already exists
+# Checking if website already there
 if (-not(Test-Path IIS:\Sites\$WebsiteName)) {
 # Create the website
 New-Item IIS:\Sites\$WebsiteName -bindings @{protocol=$Protocol;bindingInformation=":80:"} -physicalPath $PhysicalPath
@@ -23,7 +23,7 @@ New-Item IIS:\Sites\$WebsiteName -bindings @{protocol=$Protocol;bindingInformati
 
  
 
-# Check if app pool already exists
+# Checking if app pool already there
 if (-not(Test-Path IIS:\AppPools\$AppPoolName)) {
 # Create the app pool
 New-Item IIS:\AppPools\$AppPoolName
