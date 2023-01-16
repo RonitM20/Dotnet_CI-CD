@@ -1,6 +1,6 @@
 param(
-    [string]$WebsiteName
-    [string]$PhysicalPath
+    [string]$WebsiteName,
+    [string]$PhysicalPath,
     [string]$buildArtifactPath
 )
 
