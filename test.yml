@@ -16,7 +16,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-      $pat="$(pat)"
+        $pat="$(pat)"
         # Base64 encode the Personal Access Token (PAT) 
         $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($pat)"))
         
