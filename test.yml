@@ -4,21 +4,66 @@
 # https://aka.ms/yaml
 
 trigger:
- paths:
-   include:
-     - test_folder
- branches:
-  include:
-    - iis
+  none
    
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-2019
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - checkout: none
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        [CmdletBinding()]
+         param(
+                [Parameter(Mandatory)][string]$pat,
+                [Parameter(Mandatory)][string]$organization
+            )
+        
+        # Base64 encode the Personal Access Token (PAT) 
+        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($pat)"))
+        
+        # Azure DevOps REST API URL for projects 
+        $projectsUrl = "https://dev.azure.com/$organization/_apis/projects?api-version=6.0"
+        
+        # Invoke REST API to get project information 
+        $projectsResponse = Invoke-RestMethod -Uri $projectsUrl -Headers @{
+        Authorization=("Basic {0}" -f $base64AuthInfo) 
+        } -Method Get
+        
+        # Create an array to store the results 
+        $results = @() 
+        
+        # Iterate through projects 
+        foreach ($project in $projectsResponse.value) { 
+            $projectName = $project.name 
+        
+        # Azure DevOps REST API URL for service connections within the project 
+        $serviceConnectionsUrl = "https://dev.azure.com/$organization/$projectName/_apis/serviceendpoint/endpoints?api-version=6.0-preview.4" 
+        
+        # Invoke REST API to get service connections 
+        $serviceConnectionsResponse = (Invoke-RestMethod -Uri $serviceConnectionsUrl -Headers @{ Authorization=("Basic {0}" -f $base64AuthInfo) } -Method Get).value | Where{$_.type -eq "azurerm"}
+        
+        # Iterate through service connections 
+        foreach ($serviceConnection in $serviceConnectionsResponse) { 
+        $serviceConnectionName = $serviceConnection.name 
+        $subscriptionId = $serviceConnection.data.subscriptionId 
+        $subscriptionName = $serviceConnection.data.subscriptionName
+        
+        # Create a custom object with the data 
+        $result = [PSCustomObject]@{ ProjectName = $projectName 
+        ServiceConnectionName = $serviceConnectionName 
+        SubscriptionName = $subscriptionName
+        SubscriptionID = $subscriptionId } 
+        
+        # Add the object to the results array 
+        $results += $result } } 
+        
+        # Export the results to a CSV file 
+        $results | Export-Csv -Path "ProjectServiceConnectionsInfo_$organization.csv" -NoTypeInformation
+        
+        #Path of the file
+        $path=pwd
+        Write-Host -ForegroundColor Cyan "Project and service connections information exported to $path\ProjectServiceConnectionsInfo_$organization.csv"
