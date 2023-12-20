@@ -18,15 +18,15 @@ steps:
       script: |
         [CmdletBinding()]
          param(
-                [Parameter(Mandatory)][string]$pat,
-                [Parameter(Mandatory)][string]$organization
+                [Parameter(Mandatory)][string]$(pat),
+                [Parameter(Mandatory)][string]$(organization)
             )
         
         # Base64 encode the Personal Access Token (PAT) 
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($pat)"))
+        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($(pat))"))
         
         # Azure DevOps REST API URL for projects 
-        $projectsUrl = "https://dev.azure.com/$organization/_apis/projects?api-version=6.0"
+        $projectsUrl = "https://dev.azure.com/$(organization)/_apis/projects?api-version=6.0"
         
         # Invoke REST API to get project information 
         $projectsResponse = Invoke-RestMethod -Uri $projectsUrl -Headers @{
@@ -41,7 +41,7 @@ steps:
             $projectName = $project.name 
         
         # Azure DevOps REST API URL for service connections within the project 
-        $serviceConnectionsUrl = "https://dev.azure.com/$organization/$projectName/_apis/serviceendpoint/endpoints?api-version=6.0-preview.4" 
+        $serviceConnectionsUrl = "https://dev.azure.com/$(organization)/$projectName/_apis/serviceendpoint/endpoints?api-version=6.0-preview.4" 
         
         # Invoke REST API to get service connections 
         $serviceConnectionsResponse = (Invoke-RestMethod -Uri $serviceConnectionsUrl -Headers @{ Authorization=("Basic {0}" -f $base64AuthInfo) } -Method Get).value | Where{$_.type -eq "azurerm"}
