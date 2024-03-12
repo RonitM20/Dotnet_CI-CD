@@ -10,6 +10,6 @@ $test= $last3 | measure -Maximum  
 $ram=$test.Maximum
 $rom= ++$ram
 
-$final= $rgname + $rom
+$final = $rgname + $rom
 
 Write-Output $final
