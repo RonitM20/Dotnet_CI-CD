@@ -5,6 +5,7 @@ name: .NET
 
 on:
   push:
+    path: Helloworldapp.web
     
 
 jobs:
