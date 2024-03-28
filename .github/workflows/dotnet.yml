@@ -4,8 +4,8 @@
 name: .NET
 
 on:
-  push:
-    path: Helloworldapp.web
+  push:  
+    paths: Helloworldapp.web
     
 
 jobs:
