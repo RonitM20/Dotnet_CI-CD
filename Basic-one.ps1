@@ -1,7 +1,7 @@
 param(
     [string]$WebsiteName,
     [string]$PhysicalPath,
-    [string]$buildArtifactPath
+    [string]$BuildArtifactPath
 )
 
 Import-Module WebAdministration
