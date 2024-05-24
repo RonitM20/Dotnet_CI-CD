@@ -24,6 +24,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet publish --configuration "Release"
+    - name: branch_name
+      run: echo ${{ github.head_ref }}}
 
   Dev:
 
