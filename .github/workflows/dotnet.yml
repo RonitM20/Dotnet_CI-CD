@@ -24,3 +24,22 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet publish --configuration "Release"
+
+  Dev:
+
+    if: github.head_ref == master
+    runs-on: ubuntu-latest
+    steps:
+    - name: run
+      run: echo "test run"
+
+  test:
+
+    if: github.head_ref == IIS
+    runs-on: ubuntu-latest
+    steps:
+    - name: run
+      run: echo "test run"
+    
+    
+  
