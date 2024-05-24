@@ -27,21 +27,21 @@ jobs:
 
   Dev:
 
-    if: github.head_ref == master
+    if: github.head_ref == 'master'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: run
-      run: echo "test run"
+      run: echo ${{ github.head_ref }}}
 
   test:
 
-    if: github.head_ref == IIS
+    if: github.head_ref == 'IIS'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: run
-      run: echo "test run"
+      run: echo ${{ github.head_ref }}}
     
     
   
