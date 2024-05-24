@@ -28,6 +28,7 @@ jobs:
   Dev:
 
     if: github.head_ref == master
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: run
@@ -36,6 +37,7 @@ jobs:
   test:
 
     if: github.head_ref == IIS
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: run
