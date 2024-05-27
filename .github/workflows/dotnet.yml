@@ -28,7 +28,7 @@ jobs:
       run: echo ${{ github.ref_name }}
   Dev:
 
-    if: github.head_ref == 'master'
+    if: ${{ github.ref_name }} == 'master'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
 
   test:
 
-    if: github.head_ref == 'IIS'
+    if: ${{ github.ref_name }} == 'IIS'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
