@@ -23,15 +23,26 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet publish --configuration "Release"
+      run: dotnet publish --configuration "Release" --output "${{ github.workspace }}\artifact"
     - name: branch_name
       run: echo ${{ github.ref_name }}
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.1
+      with: 
+        name: Web-app
+        path: ${{ github.workspace }}\artifact
+      
   Dev:
 
     if: github.ref_name == 'master'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v4.1.7
+      with:
+        name: Web-app
+        path: ${{ github.workspace }}\artifact
     - name: run
       run: echo ${{ github.ref_name }}
 
