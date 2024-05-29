@@ -5,6 +5,9 @@ name: .NET
 
 on:
   pull_request:
+    branches: 
+    - master
+    - pr-test
     types: [closed]
     
 
@@ -37,7 +40,7 @@ jobs:
       
   Dev:
 
-    if: github.head_ref == 'master'
+    if: github.head_ref == 'pr-test'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
