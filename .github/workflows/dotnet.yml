@@ -4,11 +4,10 @@
 name: .NET
 
 on:
-  pull_request:
-    branches: 
+  push:
+    branches:
     - master
     - pr-test
-    types: [closed]
     
 
 jobs:
