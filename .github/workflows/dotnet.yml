@@ -3,16 +3,12 @@
 
 name: .NET
 
-on:
-  pull_request:
-    types: [closed]
+on: [workflow_dispatch]
     
 
 jobs:
   build:
  
-
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +35,6 @@ jobs:
       
   Dev:
 
-    if: github.head_ref == 'pr-test'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -49,7 +44,7 @@ jobs:
         name: Web-app
         path: ${{ github.workspace }}/artifact
     - name: run
-      run: echo ${{ github.ref_name }}
+      run: .\iteration2.ps1
 
   test:
 
@@ -58,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: run
-      run: echo ${{ github.ref_name }}
+      run: iteration2.ps1
     
     
   
