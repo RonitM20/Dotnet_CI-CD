@@ -37,7 +37,7 @@ jobs:
       
   Dev:
 
-    if: github.head_ref == 'pr-test'
+    if: github.head_ref == 'master'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
