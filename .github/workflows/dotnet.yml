@@ -28,14 +28,12 @@ jobs:
     - name: branch_name
       run: echo ${{ github.ref_name }}
     - name: test_sh
-      run: | 
-        chmod +x test.sh
-        ./test.sh   
+      run: touch ${{ vars.TEST_VAR }}
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with: 
         name: Web-app
-        path: ${{ github.workspace }}/artifact
+        path: ${{ github.workspace }}
       
   Dev:
 
@@ -46,7 +44,7 @@ jobs:
       uses: actions/download-artifact@v4.1.7
       with:
         name: Web-app
-        path: ${{ github.workspace }}/artifact
+        path: ${{ github.workspace }}
     - name: run
       run: dir
 
