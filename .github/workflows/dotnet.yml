@@ -48,7 +48,7 @@ jobs:
         path: ${{ github.workspace }}
     - name: run
       run: | 
-        touch ${{ env.ENV_VAR }}
+        touch ${{ vars.ENV_VAR }}
         dir
 
   test:
