@@ -27,6 +27,8 @@ jobs:
       run: dotnet publish --configuration "Release" --output "${{ github.workspace }}/artifact"
     - name: branch_name
       run: echo ${{ github.ref_name }}
+    - name: test
+      run: ./test.sh
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with: 
@@ -44,7 +46,7 @@ jobs:
         name: Web-app
         path: ${{ github.workspace }}/artifact
     - name: run
-      run: .\iteration2.ps1
+      run: dir
 
   test:
 
