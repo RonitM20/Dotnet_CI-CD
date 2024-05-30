@@ -38,6 +38,7 @@ jobs:
   Dev:
 
     needs: [build]
+    environment: Dotnet-windows
     runs-on: ubuntu-latest
     steps:
     - name: Download a Build Artifact
@@ -46,7 +47,9 @@ jobs:
         name: Web-app
         path: ${{ github.workspace }}
     - name: run
-      run: dir
+      run: | 
+        touch ${{ env.ENV_VAR }}
+        dir
 
   test:
 
