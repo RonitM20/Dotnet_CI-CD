@@ -1,1 +1,1 @@
-write-output "${{secrets.test_secret}}
+write-output "${{vars.test_var}}
