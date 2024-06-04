@@ -1,1 +1,1 @@
-touch "${{ secrets.test_secret }}"
+echo "${{ vars.test_vars }}"
