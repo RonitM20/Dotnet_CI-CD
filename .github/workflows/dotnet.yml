@@ -47,9 +47,7 @@ jobs:
         name: Web-app
         path: ${{ github.workspace }}
     - name: run
-      run: | 
-        touch ${{ vars.ENV_VAR }}
-        dir
+      run: ./test.sh
 
   test:
 
