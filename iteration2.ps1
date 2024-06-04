@@ -1,1 +1,1 @@
-write-output "${{vars.test_var}}"
+write-output "${{vars.TEST_VAR}}"
