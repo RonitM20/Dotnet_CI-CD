@@ -1,1 +1,1 @@
-echo "${{ vars.test_vars }}"
+echo "${{ vars.test_var }}"
