@@ -5,10 +5,15 @@ name: .NET
 
 on: 
   workflow_dispatch:
-    inputs:
-      test:
-        required: true
-        type: string
+    # inputs:
+    #   test:
+    #     required: true
+    #     type: string
+  push:
+    branches:
+      - master
+    paths: Helloworldapp.web
+  
   
     
 
